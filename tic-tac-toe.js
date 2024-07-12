@@ -16,7 +16,7 @@ function Gameboard() {
 
     const markCell = (row, column, player) => {
         targetCell = board[row][column];
-       if (targetCell.getValue() != 0) return;
+        if (targetCell.getValue() != 0) return;
         targetCell.addMark(player);
     }
 
@@ -24,10 +24,23 @@ function Gameboard() {
         const boardWithCellValues = 
         board.map((row) => row.map((cell) => 
         cell.getValue()))
-        console.log(boardWithCellValues);
+        console.table(boardWithCellValues);
     };
 
-    return { getBoard, markCell, printBoard }
+    const getWinner = () => {
+        const compareArrays = (a, b) => {
+            return a.toString() === b.toString();
+          };
+        console.log("get winner")
+        const topRow = board[0].map((cell) => cell.getValue());
+        console.table(topRow);
+        console.log(compareArrays(topRow, [1, 1, 1]))
+        if (compareArrays(topRow, [1, 1, 1]) === true) {
+        console.log("Top row winner");
+    }
+    }
+
+    return { getBoard, markCell, printBoard, getWinner }
 }
 
 function Cell() {
@@ -81,7 +94,13 @@ function GameController(
                 ${row}, ${column}...`
             );
             board.markCell(row, column, getActivePlayer().mark);
+
+            const checkForWinner = () => {
+                board.getWinner();
+                console.log("checked for winner");
+            }
     
+        checkForWinner()
         switchPlayerTurn();
         printNewRound();
     };
@@ -91,6 +110,7 @@ function GameController(
     return {
     playRound,
     getActivePlayer,
+    getBoard: board.getBoard
     };
 }
 
