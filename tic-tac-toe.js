@@ -33,11 +33,37 @@ function Gameboard() {
           };
         console.log("get winner")
         const topRow = board[0].map((cell) => cell.getValue());
-        console.table(topRow);
         console.log(compareArrays(topRow, [1, 1, 1]))
-        if (compareArrays(topRow, [1, 1, 1]) === true) {
+        if (compareArrays(topRow, [1, 1, 1]) === true ||
+        compareArrays(topRow, [2, 2, 2]) === true) {
         console.log("Top row winner");
-    }
+        }
+        const middleRow = board[1].map((cell) => cell.getValue());
+        if (compareArrays(middleRow, [1, 1, 1]) === true ||
+        compareArrays(middleRow, [2, 2, 2]) === true ) {
+            console.log("Middle row winner");
+        }
+        const bottomRow = board[2].map((cell) => cell.getValue());
+        if (compareArrays(bottomRow, [1, 1, 1]) === true ||
+        compareArrays(bottomRow, [2, 2, 2]) === true) {
+            console.log("Bottom row winner");
+        }
+        const leftColumn = board.map((row) => row[0].getValue());
+        console.table(leftColumn);
+        if (compareArrays(leftColumn, [1, 1, 1]) === true ||
+        compareArrays(leftColumn, [2, 2, 2]) === true) {
+            console.log("Left column winner");
+        }
+        const middleColumn = board.map((row) => row[1].getValue());
+        if (compareArrays(middleColumn, [1, 1, 1]) === true ||
+        compareArrays(middleColumn, [2, 2, 2]) === true) {
+            console.log("Middle column winner");
+        }
+        const rightColumn = board.map((row) => row[2].getValue());
+        if (compareArrays(rightColumn, [1, 1, 1]) === true ||
+        compareArrays(rightColumn, [2, 2, 2]) === true) {
+            console.log("Right column winner");
+        }
     }
 
     return { getBoard, markCell, printBoard, getWinner }
@@ -100,10 +126,10 @@ function GameController(
                 console.log("checked for winner");
             }
     
-        checkForWinner()
-        switchPlayerTurn();
-        printNewRound();
-    };
+            checkForWinner()
+            switchPlayerTurn();
+            printNewRound();
+        };
     
     printNewRound();
 
