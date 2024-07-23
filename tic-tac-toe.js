@@ -32,12 +32,15 @@ function Gameboard() {
             return a.toString() === b.toString();
           };
         console.log("get winner")
+        const winnerMark = () => {
 
         const topRow = board[0].map((cell) => cell.getValue());
         console.log(compareArrays(topRow, [1, 1, 1]))
         if (compareArrays(topRow, [1, 1, 1]) === true ||
         compareArrays(topRow, [2, 2, 2]) === true) {
         console.log("Top row winner");
+        winnerMark = topRow[0];
+        return winnerMark;
         }
 
         const middleRow = board[1].map((cell) => cell.getValue());
@@ -85,6 +88,12 @@ function Gameboard() {
         compareArrays(bottomDiagonal, [2, 2, 2]) === true) {
             console.log("Bottom diagonal winner");
         }
+
+        console.log(winnerMark);
+        return { winnerMark };
+
+        }
+        
     }
 
     return { getBoard, markCell, printBoard, getWinner }
