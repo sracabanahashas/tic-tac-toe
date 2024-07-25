@@ -10,7 +10,5 @@ display: grid;
 }
 
 .cell {
-    height: 15px;
-    width: 15px;
-    color: aquamarine;
+    color: rgb(56, 114, 95);
 }
