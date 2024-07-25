@@ -167,8 +167,8 @@ function GameController(
                 console.log("checked for winner");
                 if (winner === undefined) {
                     return;
-                } else if (winner === 1 || winner === 2) { 
-                console.log(`Player ${winner} wins!`)     
+                } else { 
+                    console.log(`Player ${winner} wins!`)     
                 }       
             }
     
@@ -186,4 +186,41 @@ function GameController(
     };
 }
 
-const game = GameController();
+function ScreenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+
+    const updateScreen = () => {
+        boardDiv.textContent = '';
+        
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`
+
+        board.forEach(row => {
+            row.forEach((cell, index) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+                cellButton.dataset.column = index;
+                cellButton.textContent = cell.getValue();
+                boardDiv.appendChild(cellButton);
+            })
+        })
+    }
+
+    function clickHandlerBoard(e) {
+        const selectedColumn = e.target.dataset.column;
+        if (!selectedColumn) return;
+
+        game.playRound(selectedColumn);
+        updateScreen();
+    }
+
+    boardDiv.addEventListener('click', clickHandlerBoard);
+
+    updateScreen();
+}
+
+ScreenController();
