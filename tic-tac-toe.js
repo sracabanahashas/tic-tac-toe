@@ -155,6 +155,17 @@ function GameController(
             console.log(`${getActivePlayer().name}'s turn.`)
         };
 
+        const checkForWinner = () => {
+            let winner = board.getWinner();
+            console.log("checked for winner");
+            if (winner === undefined) {
+                return;
+            } else { 
+                console.log(`Player ${winner} wins!`)
+                return winner;
+            }       
+        }
+
         const playRound = (row, column) => {
             console.log(
                 `Marking ${getActivePlayer().name}'s symbol at 
@@ -162,15 +173,6 @@ function GameController(
             );
             board.markCell(row, column, getActivePlayer().mark);
 
-            const checkForWinner = () => {
-                let winner = board.getWinner();
-                console.log("checked for winner");
-                if (winner === undefined) {
-                    return;
-                } else { 
-                    console.log(`Player ${winner} wins!`)     
-                }       
-            }
     
             checkForWinner()
             switchPlayerTurn();
@@ -182,7 +184,8 @@ function GameController(
     return {
     playRound,
     getActivePlayer,
-    getBoard: board.getBoard
+    getBoard: board.getBoard,
+    checkForWinner
     };
 }
 
@@ -196,8 +199,13 @@ function ScreenController() {
         
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
+        const winner = game.checkForWinner();
 
-        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`
+        if (winner === undefined) {
+            playerTurnDiv.textContent = `${activePlayer.name}'s turn...`
+        } else {
+            playerTurnDiv.textContent = `Player ${winner} wins!`
+        };
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
