@@ -98,6 +98,14 @@ function Gameboard() {
             winner = bottomDiagonal[0];
         }
 
+        const tie = board.map((row) => row.map((cell) => cell.getValue()));
+        if (compareArrays((tie.map((row) => row.includes(0))), [false, false, false]) === true &&
+            winner === undefined) {
+            console.log("A tie game")
+            winner = "tie";
+        }
+        console.log(tie.map((row) => row.includes(0)))
+        console.log(tie);
         console.log(winner);
 
         }
@@ -203,6 +211,8 @@ function ScreenController() {
 
         if (winner === undefined) {
             playerTurnDiv.textContent = `${activePlayer.name}'s turn...`
+        } else if (winner === "tie") {
+            playerTurnDiv.textContent = `A tie game!`;
         } else {
             playerTurnDiv.textContent = `Player ${winner} wins!`
         };
