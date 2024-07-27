@@ -217,13 +217,23 @@ function ScreenController() {
             playerTurnDiv.textContent = `Player ${winner} wins!`
         };
 
+        const marker = (cell) => {
+            if (cell.getValue() === 0) {
+                return '';
+            } else if (cell.getValue() === 1) {
+                return "X";
+            } else if (cell.getValue() === 2) {
+                return "O";
+            }
+        }
+
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
                 const cellButton = document.createElement("button");
                 cellButton.classList.add("cell");
                 cellButton.dataset.column = columnIndex;
                 cellButton.dataset.row = rowIndex;
-                cellButton.textContent = cell.getValue();
+                cellButton.textContent = marker(cell);
                 boardDiv.appendChild(cellButton);
             })
         })
