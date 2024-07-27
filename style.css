@@ -1,4 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.turn {
+align-self: center;
+}
+
 .board {
+align-self: center;
 display: grid;
   height: 500px;
   width: 500px;
@@ -11,4 +21,11 @@ display: grid;
 
 .cell {
     color: rgb(56, 114, 95);
+    font-size: 8rem;
+}
+
+.restart {
+    align-self: center;
+    width: 30%;
+    margin-top: 2rem;
 }
