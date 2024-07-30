@@ -24,7 +24,8 @@ display: grid;
     font-size: 8rem;
 }
 
-.restart {
+.restart,
+.players {
     align-self: center;
     width: 30%;
     margin-top: 2rem;

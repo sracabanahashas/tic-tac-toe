@@ -195,6 +195,7 @@ function GameController(
                 }
             }
             printNewRound();
+            activePlayer = players[0];
         }
     
     printNewRound();
@@ -209,10 +210,22 @@ function GameController(
 }
 
 function ScreenController() {
-    const game = GameController();
+    let playerOneName;
+    let playerTwoName;
+
+    const getNames = () => {
+        playerOneName = prompt("Player one's name?", "Player One");
+        playerTwoName = prompt("Player two's name?", "Player Two");
+    }
+
+    getNames();
+    
+    const game = GameController(playerOneName, playerTwoName);
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
     const restartBtn = document.querySelector('.restart');
+
+    
 
 
     const updateScreen = () => {
@@ -270,7 +283,11 @@ function ScreenController() {
 
     restartBtn.addEventListener('click', clickHandlerRestart);
 
+    
     updateScreen();
+
+    
+    
 }
 
 ScreenController();
