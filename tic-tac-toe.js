@@ -16,7 +16,7 @@ function Gameboard() {
 
     const markCell = (row, column, player) => {
         targetCell = board[row][column];
-        if (targetCell.getValue() != 0) return;
+        if ((targetCell.getValue() != 0) && (player != 0)) return;
         targetCell.addMark(player);
     }
 
@@ -186,6 +186,16 @@ function GameController(
             switchPlayerTurn();
             printNewRound();
         };
+
+        const reset = () => {
+            for (let i = 0; i < 3; i++) {
+                board[i] = [];
+                for (let j = 0; j < 3; j++) {
+                    board.markCell(i, j, 0);
+                }
+            }
+            printNewRound();
+        }
     
     printNewRound();
 
@@ -193,7 +203,8 @@ function GameController(
     playRound,
     getActivePlayer,
     getBoard: board.getBoard,
-    checkForWinner
+    checkForWinner,
+    reset
     };
 }
 
@@ -201,6 +212,8 @@ function ScreenController() {
     const game = GameController();
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
+    const restartBtn = document.querySelector('.restart');
+
 
     const updateScreen = () => {
         boardDiv.textContent = '';
@@ -248,7 +261,14 @@ function ScreenController() {
         updateScreen();
     }
 
+    function clickHandlerRestart(e) {
+        game.reset();
+        updateScreen();
+    }
+
     boardDiv.addEventListener('click', clickHandlerBoard);
+
+    restartBtn.addEventListener('click', clickHandlerRestart);
 
     updateScreen();
 }
